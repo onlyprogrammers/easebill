@@ -1,0 +1,13 @@
+{/* Bottom section */}
+            <div className="mt-auto border-t border-blue-800 p-4">
+              <div className={cn("flex items-center gap-3", isCollapsed && "justify-center")}>
+                <Avatar className="h-8 w-8 ring-2 ring-blue-400 ring-offset-1 ring-offset-blue-900">
+                  <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
+                  <AvatarFallback className="bg-blue-600">U</AvatarFallback>
+                </Avatar>
+                <div className={cn("transition-opacity", isCollapsed ? "opacity-0 invisible" : "opacity-100 visible")}>
+                  <p className="text-sm font-medium">Admin User</p>
+                  <p className="text-xs text-blue-300">admin@vyapar.com</p>
+                </div>
+              </div>
+            </div>
