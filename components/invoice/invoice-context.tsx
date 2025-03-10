@@ -37,7 +37,7 @@ const InvoiceContext = createContext<InvoiceContextType | undefined>(undefined)
 
 export function InvoiceProvider({ children }: { children: React.ReactNode }) {
   const [invoiceData, setInvoiceData] = useState<InvoiceData>(defaultInvoiceData)
-  const [selectedTemplate, setSelectedTemplate] = useState("classic")
+  const [selectedTemplate, setSelectedTemplate] = useState("business")
   const [items, setItems] = useState<InvoiceItem[]>([])
 
   const addItem = (item: InvoiceItem) => {

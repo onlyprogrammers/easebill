@@ -1,14 +1,13 @@
 "use client"
-
+import dynamic from "next/dynamic";
 import { useInvoice } from "./invoice-context"
 import { Card, CardContent } from "@/components/ui/card"
-import ClassicTemplate from "./templates/classic-template"
 import ModernTemplate from "./templates/modern-template"
 import BusinessTemplate from "./templates/business-template"
 import NatureTemplate from "./templates/nature-template"
 import { Button } from "@/components/ui/button"
 import { Download, Share2, Printer } from "lucide-react"
-import html2pdf from "html2pdf.js"
+const html2pdf = dynamic(() => import("html2pdf.js"), { ssr: false })
 
 export default function InvoicePreview() {
   const { invoiceData, selectedTemplate } = useInvoice()
