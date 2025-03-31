@@ -6,6 +6,27 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 
 export default function LoginPage() {
+  const handleSubmitLoginData = async (e) => {
+    e.preventDefault();
+    
+    const response = await fetch("http://127.0.0.1:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+  
+    const data = await response.json();
+    
+    if (response.ok) {
+      console.log("Login successful", data);
+      window.location.href = "/dashboard"; // Redirect after login
+    } else {
+      console.error("Login failed", data.detail);
+    }
+  };
+  
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <div className="container max-w-[1400px] px-4 py-6 flex justify-between items-center">
@@ -44,7 +65,7 @@ export default function LoginPage() {
             <p className="text-gray-500 mt-2">Log in to your BillEase account</p>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmitLoginData}>
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <Input id="email" type="email" placeholder="john@example.com" required />

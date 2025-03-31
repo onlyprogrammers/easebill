@@ -3,7 +3,7 @@ import './globals.css'
 import Mainsidebar from '@/components/kokonutui/mainsidebar'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
+  title: 'Dashboard',
   description: 'Created with v0',
   generator: 'v0.dev',
 }

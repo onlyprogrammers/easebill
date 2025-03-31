@@ -22,13 +22,13 @@ export default function SignupPage() {
 
   // Form data
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
     password: "",
-    businessType: "",
-    termsAccepted: false,
+    business_type: "",
+    terms_accepted: false,
   })
 
   const [companyData, setCompanyData] = useState({
@@ -98,10 +98,20 @@ export default function SignupPage() {
     }, 1500)
   }
 
-  const handleSubmitUserData = (e) => {
-    e.preventDefault()
-    checkUserExists()
-  }
+  const handleSubmitSignupData = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    fetch("http://127.0.0.1:8000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+  };
+  
 
   const handleSubmitCompanyData = (e) => {
     e.preventDefault()
@@ -114,29 +124,29 @@ export default function SignupPage() {
     setStep(4)
     setProgress(100)
   }
-
+ 
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <form onSubmit={handleSubmitUserData} className="space-y-6">
+          <form onSubmit={handleSubmitSignupData} method="post" className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="first_name">First Name</Label>
                 <Input
-                  id="firstName"
+                  id="first_name"
                   placeholder="John"
-                  value={userData.firstName}
+                  value={userData.first_name}
                   onChange={handleUserDataChange}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="last_name">Last Name</Label>
                 <Input
-                  id="lastName"
+                  id="last_name"
                   placeholder="Doe"
-                  value={userData.lastName}
+                  value={userData.last_name}
                   onChange={handleUserDataChange}
                   required
                 />
@@ -181,9 +191,9 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="businessType">Business Type</Label>
-              <Select onValueChange={(value) => handleSelectChange("businessType", value)}>
-                <SelectTrigger id="businessType">
+              <Label htmlFor="business_type">Business Type</Label>
+              <Select onValueChange={(value) => handleSelectChange("business_type", value)}>
+                <SelectTrigger id="business_type">
                   <SelectValue placeholder="Select business type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -199,12 +209,12 @@ export default function SignupPage() {
 
             <div className="flex items-start space-x-2">
               <Checkbox
-                id="termsAccepted"
-                checked={userData.termsAccepted}
-                onCheckedChange={(checked) => setUserData({ ...userData, termsAccepted: checked })}
+                id="terms_accepted"
+                checked={userData.terms_accepted}
+                onCheckedChange={(checked) => setUserData({ ...userData, terms_accepted: checked })}
                 required
               />
-              <Label htmlFor="termsAccepted" className="text-sm leading-none pt-0.5">
+              <Label htmlFor="terms_accepted" className="text-sm leading-none pt-0.5">
                 I agree to the{" "}
                 <Link href="/terms" className="text-red-600 hover:underline">
                   Terms of Service
